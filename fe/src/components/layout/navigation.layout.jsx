@@ -136,9 +136,15 @@ const Navigation = () => {
                     </div>
                     <div className="w-full flex items-center justify-end lg:justify-center px-4 gap-x-3 text-white">
                         <button className="text-3xl lg:hidden" onClick={toggleSearch}><CiSearch /></button>
-                        <button className="font-normal lg:hidden text-white block w-10 h-10 rounded-full bg-[#37383B]" onClick={toggleAccount}>
-                            {user.name.substring(0, 1).toUpperCase()}
-                        </button>
+                        {isLoggedIn && user?.name && (
+                            <button
+                                className="font-normal lg:hidden text-white block w-10 h-10 rounded-full bg-[#37383B]"
+                                onClick={toggleAccount}
+                            >
+                                {user.name.substring(0, 1).toUpperCase()}
+                            </button>
+                        )}
+
                         <button
                             type="button"
                             onClick={toggleMenu}
@@ -415,50 +421,52 @@ const Navigation = () => {
                     </div>
                 </div>
                 {/* Navbar Mobile menu account*/}
-                <div className={`absolute right-0 w-1/2 lg:hidden  transition duration-500 ease-in-out ${isOpenAccount ? 'translate-x-0 ' : 'translate-x-full'} bg-primary/40 backdrop-blur shadow-xl rounded-lg `}>
-                    <div className="flex flex-col text-sm p-6 text-white">
-                        <div className="account-info flex mx-auto flex-col text-center gap-2">
-                            <div className="logo-acoount bg-white/10 w-14 h-14 text-gray-100 rounded-full flex justify-center items-center mx-auto">
-                                {user.name.substring(0, 1).toUpperCase()}
-                            </div>
-                            <div className="info-acoount">
-                                <p className="text-md">{user.name}</p>
-                                <p className="text-white/50">{user.email}</p>
-                            </div>
-                        </div>
-                        <hr className="border-white/20 mx-2 my-2" />
-                        <div className="menu-dropdown">
-                            <Link className="flex items-center py-2 mx-1 rounded-md hover:bg-white/10 transition-all duration-200 cursor-pointer group">
-                                <span className="group-hover:translate-x-1 transition-transform duration-200">
-                                    Profile
-                                </span>
-                            </Link>
-                            <Link to="/wishlist" className="flex items-center py-2 mx-1 rounded-md hover:bg-white/10 transition-all duration-200 cursor-pointer group">
-                                <div className="flex items-center w-full justify-between gap-2 group-hover:translate-x-1 transition-transform duration-200">
-                                    <span>Wishlist</span>
-                                    {totalWishlist > 0 && (
-                                        <span className="w-5 h-5 bg-red-600 rounded-full flex justify-center items-center text-sm text-white">
-                                            {totalWishlist}
-                                        </span>
-                                    )}
+                {isLoggedIn &&
+                    <div className={`absolute right-0 w-1/2 lg:hidden  transition duration-500 ease-in-out ${isOpenAccount ? 'translate-x-0 ' : 'translate-x-full'} bg-primary/40 backdrop-blur shadow-xl rounded-lg `}>
+                        <div className="flex flex-col text-sm p-6 text-white">
+                            <div className="account-info flex mx-auto flex-col text-center gap-2">
+                                <div className="logo-acoount bg-white/10 w-14 h-14 text-gray-100 rounded-full flex justify-center items-center mx-auto">
+                                    {user.name.substring(0, 1).toUpperCase()}
                                 </div>
-                            </Link>
+                                <div className="info-acoount">
+                                    <p className="text-md">{user.name}</p>
+                                    <p className="text-white/50">{user.email}</p>
+                                </div>
+                            </div>
+                            <hr className="border-white/20 mx-2 my-2" />
+                            <div className="menu-dropdown">
+                                <Link className="flex items-center py-2 mx-1 rounded-md hover:bg-white/10 transition-all duration-200 cursor-pointer group">
+                                    <span className="group-hover:translate-x-1 transition-transform duration-200">
+                                        Profile
+                                    </span>
+                                </Link>
+                                <Link to="/wishlist" className="flex items-center py-2 mx-1 rounded-md hover:bg-white/10 transition-all duration-200 cursor-pointer group">
+                                    <div className="flex items-center w-full justify-between gap-2 group-hover:translate-x-1 transition-transform duration-200">
+                                        <span>Wishlist</span>
+                                        {totalWishlist > 0 && (
+                                            <span className="w-5 h-5 bg-red-600 rounded-full flex justify-center items-center text-sm text-white">
+                                                {totalWishlist}
+                                            </span>
+                                        )}
+                                    </div>
+                                </Link>
 
+                            </div>
+
+                            <hr className="border-white/20 mx-2 my-2" />
+
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-2 justify-center py-2 mx-1 bg-red-100 text-red-600 rounded-md"
+                            >
+                                <CgLogOut className="text-lg group-hover:rotate-12 transition-transform duration-200" />
+                                <span className="group-hover:font-medium transition-all duration-200">
+                                    Logout
+                                </span>
+                            </button>
                         </div>
-
-                        <hr className="border-white/20 mx-2 my-2" />
-
-                        <button
-                            onClick={handleLogout}
-                            className="flex items-center gap-2 justify-center py-2 mx-1 bg-red-100 text-red-600 rounded-md"
-                        >
-                            <CgLogOut className="text-lg group-hover:rotate-12 transition-transform duration-200" />
-                            <span className="group-hover:font-medium transition-all duration-200">
-                                Logout
-                            </span>
-                        </button>
                     </div>
-                </div>
+                }
 
             </div>
         </header>
