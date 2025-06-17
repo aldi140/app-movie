@@ -360,13 +360,21 @@ const Navigation = () => {
                 <div className={`absolute right-0 w-1/2 lg:hidden  transition duration-500 ease-in-out ${isOpen ? 'translate-x-0 ' : 'translate-x-full'} bg-primary/40 backdrop-blur shadow-xl rounded-lg `}>
                     <div className="flex flex-col text-sm p-6 text-white">
                         <div className="menu-dropdown">
-                            <Link className="flex items-center py-2 rounded-md">
-                                <span className="">
-                                    Popular
-                                </span>
-                            </Link>
-                            <hr />
-                            <Link to="/wishlist" className="flex items-center py-2 rounded-md">
+                            {!isLoggedIn && (
+                                <>
+                                    <p className="text-sm text-gray-300 mb-2">have an account?</p>
+                                    <Link
+                                        to="/login"
+                                        className="flex items-center justify-center py-2 px-4 rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200 text-white font-medium mb-3"
+                                    >
+                                        Login
+                                    </Link>
+                                     <hr />
+                                </>
+                            )}
+
+                          
+                            <Link to="/tv-series" className="flex items-center py-2 rounded-md">
                                 <div className="flex items-center w-full justify-between gap-2">
                                     <span>TV Series</span>
 
@@ -374,7 +382,7 @@ const Navigation = () => {
                             </Link>
                             <hr />
 
-                            <Link to="/wishlist" className="flex items-center py-2">
+                            <Link to="/trending" className="flex items-center py-2">
                                 <div className="flex items-center w-full justify-between gap-2">
                                     <span>Trending</span>
 
@@ -413,10 +421,7 @@ const Navigation = () => {
                                     </div>
                                 </div>
                             </div>
-
-
                             <hr />
-
                         </div>
                     </div>
                 </div>
